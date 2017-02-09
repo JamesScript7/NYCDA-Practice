@@ -1,38 +1,37 @@
-import { combineReducers, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 
-
-const userInitialValue = {name: "Ali", hobby: "Codding"}
-const userReducer = (state=userInitialValue, action) => {
-  switch(action.type){
-    case 'ADD_NAME':{
-      state = {...state, name: action.newName}
-      break;
-    }
-    case 'ADD_HOBBY':{
-      state = {...state, hobby: action.newHobby}
-      break;
-    }
+const reducer = (state=0, action) => {
+  if(action.type === "INC"){
+    return state + 1;
+  }else if (action.type === "E"){
+    throw new Error('AHHHHHHHH');
   }
-
   return state;
+
+};
+
+const logger =(store) => (next) => (action) =>{
+  console.log("action fired", action);
+};
+
+const error = (store) => (next) => (action) =>{
+  try {
+    next(action);
+  } catch(e) {
+    console.log("Error", e)
+  }
 }
 
 
-const hobbyInitialValue = {hobby: "Codding", who: "Ali"}
-const hobbyReducer = (state=hobbyInitialValue, action) => {
-  return state;
-}
+const middleware = applyMiddleware(logger, error);
 
-const reducers = combineReducers({
-  user: userReducer,
-  hobby: hobbyReducer
-})
+const store = createStore(reducer, 1, middleware);
 
-const store = createStore(reducers);
-
-store.subscribe(()=>{
-  console.log('hello', store.getState());
+store.subscribe(() => {
+  console.log("store changed", store.getState())
 });
 
-store.dispatch({type: "ADD_NAME", newName: "Alex"})
-store.dispatch({type: "ADD_HOBBY", newHobby: "Running"})
+store.dispatch({type: "INC"});
+store.dispatch({type: "INC"});
+store.dispatch({type: "INC"});
+store.dispatch({type: "E"});
