@@ -1,37 +1,46 @@
 import { applyMiddleware, createStore } from 'redux';
+import axios from 'axios';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
+import promise from 'redux-promise-middleware';
 
-const reducer = (state=0, action) => {
-  if(action.type === "INC"){
-    return state + 1;
-  }else if (action.type === "E"){
-    throw new Error('AHHHHHHHH');
+const initialState = {
+  fetching: false,
+  fetched: false,
+  info: [],
+  error: null
+}
+const reducer = (state = initialState, action) => {
+  switch(action.type){
+    case "FETCH_USERS_PENDING":{
+      return {...state, fetching: true}
+      break;
+    }
+    case "FETCH_USERS_REJECTED":{
+      return {...state, fetching: false, error: action.error}
+      break;
+    }
+    case "FETCH_USERS_FULLFILLED":{
+      return {
+        ...state,
+        fetching: false,
+        fetched: true,
+        users: action.data
+      }
+      break;
+    }
   }
   return state;
-
-};
-
-const logger =(store) => (next) => (action) =>{
-  console.log("action fired", action);
-};
-
-const error = (store) => (next) => (action) =>{
-  try {
-    next(action);
-  } catch(e) {
-    console.log("Error", e)
-  }
 }
 
-
-const middleware = applyMiddleware(logger, error);
-
-const store = createStore(reducer, 1, middleware);
+const middleware = applyMiddleware(promise(), thunk, logger());
+const store = createStore(reducer, middleware);
 
 store.subscribe(() => {
-  console.log("store changed", store.getState())
+  console.log(store.getState())
 });
 
-store.dispatch({type: "INC"});
-store.dispatch({type: "INC"});
-store.dispatch({type: "INC"});
-store.dispatch({type: "E"});
+store.dispatch({
+  type: "FETCH_USERS",
+  payload: axios.get("https://teamtreehouse.com/alishermusurmonov.json")
+});
