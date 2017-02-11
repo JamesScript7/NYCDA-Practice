@@ -67,7 +67,15 @@ section{
   margin: 15px;
   border-radius: 3px;
 }
-
+ button{
+  padding: 7px;
+  background-color: #F200FD;
+  border: 1px solid #F200FD;
+  color: #fff;
+  border-radius: 4px;
+  margin-top: auto;
+  align-self: center;
+ }
 
 footer{
   display: flex;
