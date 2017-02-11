@@ -1,0 +1,16 @@
+/*@media (min-width: 769px) {
+  header{
+    display: flex;
+  }
+  .nav-ul{
+    display: flex;
+    flex-direction: column;
+  }
+}*/
+
+@media (min-width: 780px) {
+  #col{
+    display: flex;
+    flex-direction: row;
+  }
+}
