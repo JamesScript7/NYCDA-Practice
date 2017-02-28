@@ -1,32 +1,20 @@
-import React from 'react';
-import { connect } from 'react-redux';
-// import {bindActionCreators} from 'redux';
-// import {addUsers} from './actions/UserActions';
-// import {addBooks} from './actions/BookActions';
+import React, {Component} from 'react';
+import ProductsList from './containers/products_list.js';
 
-
-
-class App extends React.Component {
+class App extends Component{
   
   render() {
-    console.log("hello",this.props.users.map((user)=>{
-      return user.name
-    }))
     return(
-      <h1>Hello {this.props.users.map((user)=>{
-      return user.name
-    })}</h1>
+      <div>
+  
+        <ProductsList />
+    
+      </div>
     )
-  } 
-}
-
-function mapToStateToProps(state) {
-  return{
-    users: state.users
   }
 }
-export default connect(mapToStateToProps)(App);
 
+export default App;
 
 
 

@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
-import BooksReducer from './BooksReducer';
-import UsersReducer from './UsersReducer';
+import {combineReducers} from 'redux';
+import ProductsReducer from './reducer_products'
 
-export default combineReducers({
-  books: BooksReducer,
-  users: UsersReducer
+const reducers = combineReducers({
+  products: ProductsReducer
 });
+
+export default reducers;
