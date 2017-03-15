@@ -1,8 +1,7 @@
-import {ADD} from '../actions'
+import {OPEN, CLOSE} from '../actions'
 
 const initialState = {
-	name: "hello",
-  age: '20'
+	isOpen: false
 }
 
 export default (state = initialState, action) => {
@@ -10,8 +9,14 @@ export default (state = initialState, action) => {
   // console.log(state)
 
   switch (action.type) {
-    case ADD:
-      return  {name: action.name, age: action.age}
+    case OPEN:
+      return  Object.assign({}, state, {
+        isOpen: true
+      })
+    case CLOSE:
+      return  Object.assign({}, state, {
+        isOpen: false
+      })
     default:
       return state
   }

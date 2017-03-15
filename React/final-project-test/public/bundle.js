@@ -28411,8 +28411,7 @@
 	var _actions = __webpack_require__(/*! ../actions */ 259);
 	
 	var initialState = {
-	  name: "hello",
-	  age: '20'
+	  isOpen: false
 	};
 	
 	exports.default = function () {
@@ -28423,8 +28422,14 @@
 	  // console.log(state)
 	
 	  switch (action.type) {
-	    case _actions.ADD:
-	      return { name: action.name, age: action.age };
+	    case _actions.OPEN:
+	      return Object.assign({}, state, {
+	        isOpen: true
+	      });
+	    case _actions.CLOSE:
+	      return Object.assign({}, state, {
+	        isOpen: false
+	      });
 	    default:
 	      return state;
 	  }
@@ -28442,7 +28447,8 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var ADD = exports.ADD = { type: 'button/ADD' };
+	var OPEN = exports.OPEN = { type: 'button/OPEN' };
+	var CLOSE = exports.CLOSE = { type: 'button/CLOSE' };
 
 /***/ },
 /* 260 */
@@ -28476,7 +28482,10 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    open: function open() {
-	      return dispatch({ type: _actions.ADD, name: "Ali", age: "27" });
+	      return dispatch({ type: _actions.OPEN });
+	    },
+	    close: function close() {
+	      return dispatch({ type: _actions.CLOSE });
 	    }
 	  };
 	};
@@ -28493,46 +28502,26 @@
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      props.state.name,
-	      console.log(props.state)
+	      props.state.isOpen ? "true" : "false"
 	    ),
 	    _react2.default.createElement(
 	      'button',
-	      { onClick: props.product },
+	      { onClick: props.open },
 	      'OPEN'
 	    ),
 	    _react2.default.createElement(
+	      'button',
+	      { onClick: props.close },
+	      'CLOSE'
+	    ),
+	    _react2.default.createElement(
 	      'form',
-	      { action: '/api/products', method: 'post' },
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        _react2.default.createElement('label', null),
-	        _react2.default.createElement('input', { type: 'text', name: 'name' })
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        _react2.default.createElement('label', null),
-	        _react2.default.createElement('input', { type: 'text', name: 'image' })
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        _react2.default.createElement('label', null),
-	        _react2.default.createElement('input', { type: 'text', name: 'info' })
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        _react2.default.createElement('label', null),
-	        _react2.default.createElement('input', { type: 'text', name: 'price' })
-	      ),
-	      _react2.default.createElement(
-	        'button',
-	        { type: 'submit' },
-	        'SEND'
-	      )
+	      { action: '/api', method: 'post' },
+	      _react2.default.createElement('input', { type: 'text', name: 'name' }),
+	      _react2.default.createElement('input', { type: 'text', name: 'image' }),
+	      _react2.default.createElement('input', { type: 'text', name: 'info' }),
+	      _react2.default.createElement('input', { type: 'text', name: 'price' }),
+	      _react2.default.createElement('input', { type: 'submit', name: '' })
 	    )
 	  );
 	};

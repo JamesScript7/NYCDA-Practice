@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {ADD} from './actions'
+import {OPEN, CLOSE} from './actions'
 
 const mapStateToProps = state => ({
   state
@@ -8,21 +8,25 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   open: () =>
-    dispatch({ type: ADD, name: "Ali", age: "27" })
+    dispatch({ type: OPEN }),
+  close: () =>
+    dispatch({ type: CLOSE }),
 });
 
 const Screen1 =(props)=>{ 
 	return(
 	<div>
 		<h1>SCREEN 1</h1>
-		<p>{props.state.name}{console.log(props.state)}</p>
-		<button onClick={props.product}>OPEN</button>
-    <form action="/api/products" method="post">
-      <p><label></label><input type="text" name="name" /></p>
-      <p><label></label><input type="text" name="image" /></p>
-      <p><label></label><input type="text" name="info" /></p>
-      <p><label></label><input type="text" name="price" /></p>
-      <button type="submit">SEND</button>
+		<p>{props.state.isOpen ? "true" : "false"}</p>
+		<button onClick={props.open}>OPEN</button>
+		<button onClick={props.close}>CLOSE</button>
+
+    <form action="/api" method="post">
+      <input type="text" name="name" />
+      <input type="text" name="image" />
+      <input type="text" name="info" />
+      <input type="text" name="price" />
+      <input type="submit" name="" />
     </form>
 	</div>
 	)
