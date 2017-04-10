@@ -1,0 +1,13 @@
+encoded values for these integers;
+
+1) 7893;
+2) 1436;
+3) 190;
+4) -134;
+
+decoded integers for these hexadecimal values;
+
+1) "3ed5"
+2) "259c"
+3) "20be"
+4) "1f7a"
