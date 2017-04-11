@@ -1,0 +1,13 @@
+#preloader{
+  width: 300px;
+  height: 300px;
+  border: 30px solid #8FFFCE;
+  border-radius: 50%;
+  border-top: 31px solid #FC506A;
+  animation: spinner 2s linear infinite;
+}
+
+@keyframes spinner{
+  from { transform: rotate(0deg); }
+  to  { transform: rotate(360deg); }
+}
